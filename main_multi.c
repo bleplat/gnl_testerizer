@@ -1,0 +1,106 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main_multi.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bleplat <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/11/16 22:11:42 by bleplat           #+#    #+#             */
+/*   Updated: 2018/11/16 22:29:28 by bleplat          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <fcntl.h>
+
+#include "get_next_line.h"
+
+int			advanced;
+
+void		dropline(int result, char **line)
+{
+	if (result == 0)
+	{
+		if (advanced)
+			printf("(%d) END-OF-FILE\n", result);
+
+		return ;
+	}
+	if (advanced)
+		printf("(%d) '%s'\n", result, *line);
+	else
+		printf("%s\n", *line);
+	free(*line);
+}
+
+int			main(int argc, char **argv)
+{
+	int		fd0 = open("multi0", O_RDONLY);
+	int		fd1 = open("multi1", O_RDONLY);
+	int		fd2 = open("multi2", O_RDONLY);
+	int		fd3 = open("multi3", O_RDONLY);
+	int		fd4 = open("multi4", O_RDONLY);
+	int		fd5 = open("multi5", O_RDONLY);
+	int		fd6 = open("multi6", O_RDONLY);
+	char	*line;
+	int		result;
+
+	advanced = 0;
+	if (argc != 1)
+		advanced = 1;
+	while ((result = get_next_line(fd0, &line)) > 0)
+		dropline(result, &line);
+	dropline(result, &line);
+
+	result = get_next_line(fd6, &line);
+	dropline(result, &line);
+	result = get_next_line(fd6, &line);
+	dropline(result, &line);
+
+	result = get_next_line(fd1, &line);
+	dropline(result, &line);
+	result = get_next_line(fd2, &line);
+	dropline(result, &line);
+	result = get_next_line(fd3, &line);
+	dropline(result, &line);
+	result = get_next_line(fd4, &line);
+	dropline(result, &line);
+	
+	result = get_next_line(fd1, &line);
+	dropline(result, &line);
+	result = get_next_line(fd2, &line);
+	dropline(result, &line);
+	result = get_next_line(fd3, &line);
+	dropline(result, &line);
+	result = get_next_line(fd4, &line);
+	dropline(result, &line);
+
+	result = get_next_line(fd1, &line);
+	dropline(result, &line);
+	result = get_next_line(fd2, &line);
+	dropline(result, &line);
+	result = get_next_line(fd3, &line);
+	dropline(result, &line);
+	result = get_next_line(fd4, &line);
+	dropline(result, &line);
+
+	result = get_next_line(fd1, &line);
+	dropline(result, &line);
+	result = get_next_line(fd2, &line);
+	dropline(result, &line);
+	result = get_next_line(fd3, &line);
+	dropline(result, &line);
+	result = get_next_line(fd4, &line);
+	dropline(result, &line);
+
+	result = get_next_line(fd5, &line);
+	dropline(result, &line);
+	result = get_next_line(fd5, &line);
+	dropline(result, &line);
+	result = get_next_line(fd5, &line);
+	dropline(result, &line);
+
+	result = get_next_line(fd6, &line);
+	dropline(result, &line);
+}
