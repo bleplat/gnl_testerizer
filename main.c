@@ -6,7 +6,7 @@
 /*   By: bleplat <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/15 18:34:33 by bleplat           #+#    #+#             */
-/*   Updated: 2018/11/16 22:10:53 by bleplat          ###   ########.fr       */
+/*   Updated: 2018/11/17 22:08:31 by bleplat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ int			main(int argc, char **argv)
 			printf("%s\n", line);
 		free(line);
 	}
-	if (advanced)
+	if (advanced && result < 0)
+		printf("(%d) RESULT-IS-ERROR-CODE\n", result);
+	else if (advanced)
 		printf("(%d) END-OF-FILE\n", result);
 }

@@ -6,7 +6,7 @@
 #    By: bleplat <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 09:05:04 by bleplat           #+#    #+#              #
-#    Updated: 2018/11/17 16:33:16 by bleplat          ###   ########.fr        #
+#    Updated: 2018/11/17 21:30:24 by bleplat          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,8 @@ LFLAGS = -Wall -Wextra -L libft -lft
 all: norminette copy $(NAME)
 
 norminette:
-	cd $(TESTED_DIR) && norminette
+	cd $(TESTED_DIR) && norminette *.h
+	cd $(TESTED_DIR) && norminette *.c
 
 copy:
 	mkdir -p $(GNL_DIR)
