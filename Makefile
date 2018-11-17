@@ -6,7 +6,7 @@
 #    By: bleplat <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 09:05:04 by bleplat           #+#    #+#              #
-#    Updated: 2018/11/16 22:32:29 by bleplat          ###   ########.fr        #
+#    Updated: 2018/11/17 16:33:16 by bleplat          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ main_obj:
 	gcc $(CFLAGS) -o $(GNL_DIR)/main.o -c main.c
 
 tests_multi:
-	gcc -o tests_multilines main_multi.c get_next_line.c -I libft/includes -DBUFF_SIZE=8 -L libft -lft
+	gcc -o tests_multifd main_multi.c get_next_line.c -I libft/includes -DBUFF_SIZE=8 -L libft -lft
 
 $(NAME): tests_multi copy main_obj gnl_obj
 	gcc $(LFLAGS) -o $(NAME)_tiny main.o get_next_line.c_tiny.o
@@ -52,6 +52,8 @@ gnl_obj: get_next_line.c get_next_line.h
 
 clean:
 	rm -rf *.o
+	rm -rf libft
+	rm -f get_next_line.c get_next_line.h
 
 fclean: clean
 	rm -rf $(NAME)_*

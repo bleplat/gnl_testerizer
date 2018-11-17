@@ -1,0 +1,35 @@
+fd 3 (1) 'ABCD'
+fd 3 (1) 'DEFG'
+fd 3 (1) 'HIJK'
+fd 3 (1) 'LMNOP'
+fd 3 (1) 'QRSTUVWXYZ'
+fd 3 (0) END-OF-FILE
+fd 9 (1) '1 line from file 6'
+fd 9 (1) 'another one from 6th line'
+fd 4 (1) 'line in 1'
+fd 5 (1) 'line in 2'
+fd 6 (1) 'Line in 3'
+fd 7 (1) 'line in 4'
+fd 4 (1) 'second in 1'
+fd 5 (1) 'second in 2'
+fd 6 (1) 'Second in 3'
+fd 7 (1) 'second in 4'
+fd 4 (1) 'third line in 1'
+fd 5 (1) 'third line in 2'
+fd 6 (1) 'Third line in 3'
+fd 7 (1) 'third line in 4'
+fd 4 (1) 'fourth line in 1'
+fd 5 (1) 'fourth line in 2'
+fd 6 (1) 'Fourth line in 3'
+fd 7 (1) 'fourth line in 4'
+fd 8 (1) 'first in 5'
+fd 8 (1) 'second and last in 5'
+fd 8 (0) END-OF-FILE
+fd 9 (1) 'final line in file 6'
+fd 4 (0) END-OF-FILE
+fd 5 (0) END-OF-FILE
+fd 6 (0) END-OF-FILE
+fd 7 (0) END-OF-FILE
+fd 8 (0) END-OF-FILE
+fd 9 (0) END-OF-FILE
+fd -77 (-1) '(null)'
