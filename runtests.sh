@@ -70,9 +70,8 @@ testleaks() {
 	./tests_leaks $1 &> /dev/null &
 	sleep .6
 	leaks tests_leaks | grep "total leaked bytes" | sed -e "s/^Process .*: //g" > "tmp_leaks"
-	sleep .2
 	pkill tests_leaks > /dev/null
-	sleep .2
+	sleep .1
 	if [ "`cat tmp_leaks`" = "0 leaks for 0 total leaked bytes." ]
 	then
 		printf $color_ok
