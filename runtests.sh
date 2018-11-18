@@ -12,21 +12,6 @@ color_ko="\e[31m"
 printf "\e[35mg\e[31mn\e[32ml\e[33m_\e[34mt\e[35me\e[36ms\e[37mt\e[35m\e[31me\e[32mr\e[33mi\e[34mz\e[35me\e[36mr\e[35m\n\n"
 printf "" > $diffttl
 
-bonusdiff() {
-	if [ "`diff $1 $2`" = "" ]
-	then
-		printf $color_ok
-		printf "[bonus]"
-	else
-		printf $color_ko
-		printf "[no bonus]"
-		printf $color_det
-		diff $1 $2 > "tmp_diff"
-		echo "Failed test" >> $diffttl
-		cat "tmp_diff" >> $diffttl
-	fi
-}
-
 onediff() {
 	if [ "`diff $1 $2`" = "" ]
 	then
@@ -37,7 +22,7 @@ onediff() {
 		printf "[fail]"
 		printf $color_det
 		diff $1 $2 > "tmp_diff"
-		echo "Failed test" >> $diffttl
+		echo "Failed test with $3" >> $diffttl
 		cat "tmp_diff" >> $diffttl
 	fi
 }
@@ -48,18 +33,18 @@ onetest() { # $1 -> file_name
 	cat $1 | awk 1 > $expect
 	# input from file
 	./tests_tiny $1 > $your
-	onediff $expect $your;
+	onediff $expect $your $1;
 	./tests_small $1 > $your
-	onediff $expect $your;
+	onediff $expect $your $1;
 	./tests_big $1 > $your
-	onediff $expect $your;
+	onediff $expect $your $1;
 	# standard input
 	cat $1 | ./tests_tiny > $your
-	onediff $expect $your;
+	onediff $expect $your $1;
 	cat $1 | ./tests_small > $your
-	onediff $expect $your;
+	onediff $expect $your $1;
 	cat $1 | ./tests_big > $your
-	onediff $expect $your;
+	onediff $expect $your $1;
 	printf "\n\n"
 }
 
@@ -142,7 +127,7 @@ printf $color_def
 printf "testing bad file descriptors (lot of tests in one)...\n"
 cat "testfiles/badfds_expected" | awk 1 > $expect
 ./tests_badfds "-" > $your;
-onediff $expect $your
+onediff $expect $your "Bad file descriptors"
 printf "\n\n"
 
 # BONUS: multi file descriptors
@@ -150,7 +135,7 @@ printf $color_def
 printf "testing multi file descriptors bonus (lot of tests in one)...\n"
 cat "testfiles/multifd_expected" | awk 1 > $expect
 ./tests_multifd "-" > $your;
-onediff $expect $your
+onediff $expect $your "Multiple file descriptors"
 printf "\n\n"
 
 # Leaks tests
@@ -162,6 +147,7 @@ testleaks "testfiles/2l16c_nonl.txt"
 testleaks "testfiles/0l0l.txt"
 testleaks "testfiles/empty_lines.txt"
 testleaks "testfiles/fat_line.txt"
+testleaks "testfiles/fat_line_nonl.txt"
 testleaks "testfiles/big_lorem_ipsum.txt"
 testleaks "file_that_doesnt_existsssss76358638468883"
 
