@@ -6,7 +6,7 @@
 #    By: bleplat <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 09:05:04 by bleplat           #+#    #+#              #
-#    Updated: 2018/11/18 21:33:00 by bleplat          ###   ########.fr        #
+#    Updated: 2018/11/18 22:03:39 by bleplat          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,11 @@ tests_leaks: main_leaks.c
 	@printf "\e[35m"
 	@gcc -o tests_leaks main_leaks.c get_next_line.c -I libft/includes -DBUFF_SIZE=9 -L libft -lft
 
-$(NAME): libft_lib tests_leaks tests_badfds tests_multifd copy main_obj gnl_obj
+tests_highfds: main_highfds.c
+	@printf "\e[35m"
+	@gcc -o tests_highfds main_highfds.c get_next_line.c -I libft/includes -DBUFF_SIZE=9 -L libft -lft
+
+$(NAME): libft_lib tests_highfds tests_leaks tests_badfds tests_multifd copy main_obj gnl_obj
 	@printf "\e[35m"
 	@gcc $(LFLAGS) -o $(NAME)_tiny main.o get_next_line.c_tiny.o
 	@gcc $(LFLAGS) -o $(NAME)_small main.o get_next_line.c_small.o
@@ -78,6 +82,7 @@ clean:
 	rm -rf libft
 	rm -f get_next_line.c get_next_line.h
 	rm -f tmp_*
+	rm -rf tmp
 
 fclean: clean
 	@printf "\e[33m"

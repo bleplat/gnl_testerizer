@@ -139,6 +139,20 @@ cat "testfiles/badfds_expected" | awk 1 > $expect
 onediff $expect $your "Bad file descriptors"
 printf "\n\n"
 
+# BIG file descriptors
+printf $color_def
+printf "testing big file descriptor...\n"
+cat "testfiles/highfds_expected" | awk 1 > $expect
+mkdir -p tmp
+./tests_highfds "-" "#128" "testfiles/2l8c.txt" > $your;
+onediff $expect $your "Big file descriptor"
+./tests_highfds "-" "#512" "testfiles/2l8c.txt" > $your;
+onediff $expect $your "Big file descriptor"
+./tests_highfds "-" "#2096" "testfiles/2l8c.txt" > $your;
+onediff $expect $your "Big file descriptor"
+rm -rf tmp
+printf "\n\n"
+
 # BONUS: multi file descriptors
 printf $color_def
 printf "testing multi file descriptors bonus (lot of tests in one)...\n"
