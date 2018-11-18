@@ -6,7 +6,7 @@
 #    By: bleplat <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 09:05:04 by bleplat           #+#    #+#              #
-#    Updated: 2018/11/18 14:50:22 by bleplat          ###   ########.fr        #
+#    Updated: 2018/11/18 15:58:00 by bleplat          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,39 +25,49 @@ CFLAGS = -Wall -Werror -I $(GNL_DIR)
 LFLAGS = -Wall -Wextra -L libft -lft
 
 all: norminette copy $(NAME)
+	@printf "\e[36mLAUNCHING TESTS...\e[31m\n\n"
+	@sh runtests.sh
 
 norminette:
-	cd $(TESTED_DIR) && norminette *.h
-	cd $(TESTED_DIR) && norminette *.c
+	@printf "\e[36mrunning norminette...\e[31m\n"
+	@cd $(TESTED_DIR) && norminette *.h 1> /dev/null
+	@cd $(TESTED_DIR) && norminette *.c 1> /dev/null
 
 copy:
-	mkdir -p $(GNL_DIR)
-	cp -rf $(TESTED_DIR)/* $(GNL_DIR)/
-	sed -E "s/^# define BUFF_SIZE .*/\/\*# define BUFF_SIZE 0\*\//g" $(GNL_DIR)/get_next_line.h > swp && mv swp $(GNL_DIR)/get_next_line.h
+	@printf "\e[37mcopying files..\n"
+	@mkdir -p $(GNL_DIR)
+	@cp -rf $(TESTED_DIR)/* $(GNL_DIR)/
+	@sed -E "s/^# define BUFF_SIZE .*/\/\*# define BUFF_SIZE 0\*\//g" $(GNL_DIR)/get_next_line.h > swp && mv swp $(GNL_DIR)/get_next_line.h
 
 main_obj:
+	@printf "\e[35m"
 	gcc $(CFLAGS) -o $(GNL_DIR)/main.o -c main.c
 
 tests_multi:
+	@printf "\e[35m"
 	gcc -o tests_multifd main_multi.c get_next_line.c -I libft/includes -DBUFF_SIZE=8 -L libft -lft
 
 $(NAME): tests_multi copy main_obj gnl_obj
+	@printf "\e[35m"
 	gcc $(LFLAGS) -o $(NAME)_tiny main.o get_next_line.c_tiny.o
 	gcc $(LFLAGS) -o $(NAME)_small main.o get_next_line.c_small.o
 	gcc $(LFLAGS) -o $(NAME)_big main.o get_next_line.c_big.o
 
 gnl_obj: get_next_line.c get_next_line.h
+	@printf "\e[35m"
 	gcc $(CFLAGS) -DBUFF_SIZE=1 -o $<_tiny.o -I $(INCLUDES) -c $<
 	gcc $(CFLAGS) -DBUFF_SIZE=8 -o $<_small.o -I $(INCLUDES) -c $<
 	gcc $(CFLAGS) -DBUFF_SIZE=256 -o $<_big.o -I $(INCLUDES) -c $<
 
 clean:
+	@printf "\e[33m"
 	rm -rf *.o
 	rm -rf libft
 	rm -f get_next_line.c get_next_line.h
 	rm -f tmp_*
 
 fclean: clean
+	@printf "\e[33m"
 	rm -rf $(NAME)_*
 
 re: fclean all

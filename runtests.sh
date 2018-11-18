@@ -34,13 +34,13 @@ onediff() {
 onetest() { # $1 -> file_name
 	printf $color_def
 	printf "testing $1...\n"
-	cat -e $1 > $expect
+	cat $1 | awk 1 > $expect
 	./tests_tiny $1 > $your1
 	./tests_small $1 > $your2
 	./tests_big $1 > $your3
-	onediff $1 $your1;
-	onediff $1 $your2;
-	onediff $1 $your3;
+	onediff $expect $your1;
+	onediff $expect $your2;
+	onediff $expect $your3;
 }
 
 #########################################
@@ -74,8 +74,13 @@ onetest "testfiles/3l8c_nonl.txt"
 onetest "testfiles/3l16c.txt"
 onetest "testfiles/3l16c_nonl.txt"
 
-# other
+# other lines of chars
 onetest "testfiles/0l0c.txt"
+onetest "testfiles/1l1c.txt"
+onetest "testfiles/1l1c_nonl.txt"
+onetest "testfiles/3l12c.txt"
+
+# 'multi' files (no waste!)
 onetest "testfiles/multi0.txt"
 onetest "testfiles/multi1.txt"
 onetest "testfiles/multi2.txt"
@@ -83,10 +88,14 @@ onetest "testfiles/multi3.txt"
 onetest "testfiles/multi4.txt"
 onetest "testfiles/multi5.txt"
 onetest "testfiles/multi6.txt"
+
+# big files
 onetest "testfiles/big_lorem_ipsum.txt"
 onetest "testfiles/fat_line.txt"
 onetest "testfiles/fat_line_nonl.txt"
+onetest "testfiles/empty_lines.txt"
+onetest "testfiles/rn.txt"
 
-printf color_def
+printf $color_def
 printf "ALL TESTS DONE!\n"
 rm tmp_*
