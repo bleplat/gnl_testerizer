@@ -1,5 +1,6 @@
 # /bin/bash
 
+
 expect=tmp_expected_results
 your=tmp_your_result
 diffttl=test_results
@@ -9,8 +10,16 @@ color_det="\e[33m"
 color_ok="\e[32m"
 color_ko="\e[31m"
 
-printf "\e[35mg\e[31mn\e[32ml\e[33m_\e[34mt\e[35me\e[36ms\e[37mt\e[35m\e[31me\e[32mr\e[33mi\e[34mz\e[35me\e[36mr\e[35m\n\n"
-printf "" > $diffttl
+
+if [ -f tests_big ]
+then
+	printf "\e[35mg\e[31mn\e[32ml\e[33m_\e[34mt\e[35me\e[36ms\e[37mt\e[35m\e[31me\e[32mr\e[33mi\e[34mz\e[35me\e[36mr\e[35m\n\n"
+	printf "" > $diffttl
+else
+	printf $color_ko
+	printf "ERROR: do 'make' instead of running this script!"
+	exit 1
+fi
 
 onediff() {
 	if [ "`diff $1 $2`" = "" ]
