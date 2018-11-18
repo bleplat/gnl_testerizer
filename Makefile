@@ -6,7 +6,7 @@
 #    By: bleplat <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 09:05:04 by bleplat           #+#    #+#              #
-#    Updated: 2018/11/18 18:47:23 by bleplat          ###   ########.fr        #
+#    Updated: 2018/11/18 18:54:33 by bleplat          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ INCLUDES = libft/includes
 SRC_DIR = .
 OBJ_DIR = .
 
-CFLAGS = -Wall -Werror -I $(GNL_DIR)
+CFLAGS = -Wall -Wextra -I $(GNL_DIR)
 LFLAGS = -Wall -Wextra -L libft -lft
 
 all: norminette copy $(NAME)
