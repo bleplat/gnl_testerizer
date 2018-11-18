@@ -6,7 +6,7 @@
 #    By: bleplat <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 09:05:04 by bleplat           #+#    #+#              #
-#    Updated: 2018/11/18 18:54:33 by bleplat          ###   ########.fr        #
+#    Updated: 2018/11/18 19:39:38 by bleplat          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = tests
 
 BUFF_SIZE = 32
 
-TESTED_DIR = ../no_try_yet
+TESTED_DIR = ../try0
 GNL_DIR = .
 
 INCLUDES = libft/includes
@@ -39,33 +39,36 @@ copy:
 	@cp -rf $(TESTED_DIR)/* $(GNL_DIR)/
 	@sed -E "s/^# define BUFF_SIZE .*/\/\*# define BUFF_SIZE 0\*\//g" $(GNL_DIR)/get_next_line.h > swp && mv swp $(GNL_DIR)/get_next_line.h
 
+libft_lib:
+	cd $(GNL_DIR)/libft && make 1> /dev/null
+
 main_obj:
 	@printf "\e[35m"
-	gcc $(CFLAGS) -o $(GNL_DIR)/main.o -c main.c
+	@gcc $(CFLAGS) -o $(GNL_DIR)/main.o -c main.c
 
 tests_multifd: main_multi.c
 	@printf "\e[35m"
-	gcc -o tests_multifd main_multi.c get_next_line.c -I libft/includes -DBUFF_SIZE=8 -L libft -lft
+	@gcc -o tests_multifd main_multi.c get_next_line.c -I libft/includes -DBUFF_SIZE=8 -L libft -lft
 
 tests_badfds: main_badfds.c
 	@printf "\e[35m"
-	gcc -o tests_badfds main_badfds.c get_next_line.c -I libft/includes -DBUFF_SIZE=8 -L libft -lft
+	@gcc -o tests_badfds main_badfds.c get_next_line.c -I libft/includes -DBUFF_SIZE=8 -L libft -lft
 
 tests_leaks: main_leaks.c
 	@printf "\e[35m"
-	gcc -o tests_leaks main_leaks.c get_next_line.c -I libft/includes -DBUFF_SIZE=9 -L libft -lft
+	@gcc -o tests_leaks main_leaks.c get_next_line.c -I libft/includes -DBUFF_SIZE=9 -L libft -lft
 
-$(NAME): tests_leaks tests_badfds tests_multifd copy main_obj gnl_obj
+$(NAME): libft_lib tests_leaks tests_badfds tests_multifd copy main_obj gnl_obj
 	@printf "\e[35m"
-	gcc $(LFLAGS) -o $(NAME)_tiny main.o get_next_line.c_tiny.o
-	gcc $(LFLAGS) -o $(NAME)_small main.o get_next_line.c_small.o
-	gcc $(LFLAGS) -o $(NAME)_big main.o get_next_line.c_big.o
+	@gcc $(LFLAGS) -o $(NAME)_tiny main.o get_next_line.c_tiny.o
+	@gcc $(LFLAGS) -o $(NAME)_small main.o get_next_line.c_small.o
+	@gcc $(LFLAGS) -o $(NAME)_big main.o get_next_line.c_big.o
 
 gnl_obj: get_next_line.c get_next_line.h
 	@printf "\e[35m"
-	gcc $(CFLAGS) -DBUFF_SIZE=1 -o $<_tiny.o -I $(INCLUDES) -c $<
-	gcc $(CFLAGS) -DBUFF_SIZE=8 -o $<_small.o -I $(INCLUDES) -c $<
-	gcc $(CFLAGS) -DBUFF_SIZE=256 -o $<_big.o -I $(INCLUDES) -c $<
+	@gcc $(CFLAGS) -DBUFF_SIZE=1 -o $<_tiny.o -I $(INCLUDES) -c $<
+	@gcc $(CFLAGS) -DBUFF_SIZE=8 -o $<_small.o -I $(INCLUDES) -c $<
+	@gcc $(CFLAGS) -DBUFF_SIZE=256 -o $<_big.o -I $(INCLUDES) -c $<
 
 clean:
 	@printf "\e[33m"
@@ -77,5 +80,6 @@ clean:
 fclean: clean
 	@printf "\e[33m"
 	rm -rf $(NAME)_*
+	rm -f test_results
 
 re: fclean all
