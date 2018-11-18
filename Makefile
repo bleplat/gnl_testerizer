@@ -6,7 +6,7 @@
 #    By: bleplat <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 09:05:04 by bleplat           #+#    #+#              #
-#    Updated: 2018/11/18 21:00:42 by bleplat          ###   ########.fr        #
+#    Updated: 2018/11/18 21:33:00 by bleplat          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,9 @@ norminette:
 copy:
 	@printf "\e[35mcopying files..\n"
 	@mkdir -p $(GNL_DIR)
-	@cp -rf $(TESTED_DIR)/* $(GNL_DIR)/
+	@cp -rf $(TESTED_DIR)/libft $(GNL_DIR)/libft
+	@cp -rf $(TESTED_DIR)/get_next_line.h $(GNL_DIR)/get_next_line.h
+	@cp -rf $(TESTED_DIR)/get_next_line.c $(GNL_DIR)/get_next_line.c
 	@sed -E "s/^# define BUFF_SIZE .*/\/\*# define BUFF_SIZE 0\*\//g" $(GNL_DIR)/get_next_line.h > swp && mv swp $(GNL_DIR)/get_next_line.h
 
 libft_lib:
