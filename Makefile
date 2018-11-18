@@ -6,15 +6,15 @@
 #    By: bleplat <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 09:05:04 by bleplat           #+#    #+#              #
-#    Updated: 2018/11/18 19:39:38 by bleplat          ###   ########.fr        #
+#    Updated: 2018/11/18 21:00:42 by bleplat          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+TESTED_DIR = ../try0
+
+
 NAME = tests
 
-BUFF_SIZE = 32
-
-TESTED_DIR = ../try0
 GNL_DIR = .
 
 INCLUDES = libft/includes
