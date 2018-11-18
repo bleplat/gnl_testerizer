@@ -6,7 +6,7 @@
 #    By: bleplat <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 09:05:04 by bleplat           #+#    #+#              #
-#    Updated: 2018/11/17 21:30:24 by bleplat          ###   ########.fr        #
+#    Updated: 2018/11/18 14:50:22 by bleplat          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,6 +55,7 @@ clean:
 	rm -rf *.o
 	rm -rf libft
 	rm -f get_next_line.c get_next_line.h
+	rm -f tmp_*
 
 fclean: clean
 	rm -rf $(NAME)_*
