@@ -167,4 +167,5 @@ testleaks "file_that_doesnt_existsssss76358638468883"
 
 printf $color_def
 printf "ALL TESTS DONE!\n"
+printf "\e[36mWARNING! This version is not finished and may contains bugs\n"
 rm tmp_*
