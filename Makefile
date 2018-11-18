@@ -6,7 +6,7 @@
 #    By: bleplat <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 09:05:04 by bleplat           #+#    #+#              #
-#    Updated: 2018/11/18 17:30:50 by bleplat          ###   ########.fr        #
+#    Updated: 2018/11/18 18:47:23 by bleplat          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,11 +30,11 @@ all: norminette copy $(NAME)
 
 norminette:
 	@printf "\e[36mrunning norminette...\e[31m\n"
-	@cd $(TESTED_DIR) && norminette *.h 1> /dev/null
-	@cd $(TESTED_DIR) && norminette *.c 1> /dev/null
+	@cd $(TESTED_DIR) && norminette *.h | sed -e "/^Norme: /d"
+	@cd $(TESTED_DIR) && norminette *.c | sed -e "/^Norme: /d"
 
 copy:
-	@printf "\e[37mcopying files..\n"
+	@printf "\e[35mcopying files..\n"
 	@mkdir -p $(GNL_DIR)
 	@cp -rf $(TESTED_DIR)/* $(GNL_DIR)/
 	@sed -E "s/^# define BUFF_SIZE .*/\/\*# define BUFF_SIZE 0\*\//g" $(GNL_DIR)/get_next_line.h > swp && mv swp $(GNL_DIR)/get_next_line.h
