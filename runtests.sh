@@ -60,11 +60,11 @@ onetest() { # $1 -> file_name
 testleaks() {
 	printf $color_def
 	printf "searching leaks with $1...\n"
-	pkill tests_leaks > /dev/null
+	pkill tests_leaks &> /dev/null
 	./tests_leaks $1 &> /dev/null &
 	sleep .6
 	leaks tests_leaks | grep "total leaked bytes" | sed -e "s/^Process .*: //g" > "tmp_leaks"
-	pkill tests_leaks > /dev/null
+	pkill tests_leaks &> /dev/null
 	sleep .1
 	if [ "`cat tmp_leaks`" = "0 leaks for 0 total leaked bytes." ]
 	then
