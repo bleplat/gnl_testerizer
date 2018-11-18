@@ -6,7 +6,7 @@
 /*   By: bleplat <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/15 18:34:33 by bleplat           #+#    #+#             */
-/*   Updated: 2018/11/18 18:11:32 by bleplat          ###   ########.fr       */
+/*   Updated: 2018/11/18 17:28:06 by bleplat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,25 +21,21 @@ int			main(int argc, char **argv)
 	int		advanced;
 	int		fd;
 	char	*line;
-	int		forcenull;
 	int		result;
 	int 	iargcf;
 
 	iargcf = 1;
 	advanced = 0;
 	fd = 0;
-	forcenull = 0;
 	while (iargcf < argc)
 	{
 		if (argv[iargcf][0] == '-')
 			advanced = 1;
-		else if (argv[iargcf][0] == '#')
-			forcenull = 1;
 		else
 			fd = open(argv[argc - 1], O_RDONLY);
 		iargcf++;
 	}
-	while ((result = get_next_line(fd, forcenull ? (void*)0 : &line)) > 0)
+	while ((result = get_next_line(fd, &line)) > 0)
 	{
 		if (advanced)
 			printf("(%d) '%s'\n", result, line);
@@ -51,5 +47,5 @@ int			main(int argc, char **argv)
 		printf("(%d) RESULT-IS-ERROR-CODE\n", result);
 	else if (advanced)
 		printf("(%d) END-OF-FILE\n", result);
-	return (0);
+	while (1);
 }

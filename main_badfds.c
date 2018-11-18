@@ -6,7 +6,7 @@
 /*   By: bleplat <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/16 22:11:42 by bleplat           #+#    #+#             */
-/*   Updated: 2018/11/18 14:58:08 by bleplat          ###   ########.fr       */
+/*   Updated: 2018/11/18 18:13:21 by bleplat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@ void		dropline(int fd, int result, char **line)
 
 int			main(int argc, char **argv)
 {
-	int		fd0 = open("testfiles/multi0.txt", O_RDONLY);
-	int		fd1 = open("testfiles/multi1.txt", O_RDONLY);
-	int		fd2 = open("testfiles/multi2.txt", O_RDONLY);
-	int		fd3 = open("testfiles/multi3.txt", O_RDONLY);
-	int		fd4 = open("testfiles/multi4.txt", O_RDONLY);
-	int		fd5 = open("testfiles/multi5.txt", O_RDONLY);
-	int		fd6 = open("testfiles/multi6.txt", O_RDONLY);
+	int		fd0 = 3;
+	int		fd1 = -1;
+	int		fd2 = -2;
+	int		fd3 = -77;
+	int		fd4 = 44;
+	int		fd5 = 1000;
+	int		fd6 = 2147483647;
 	char	*line;
 	int		result;
 
@@ -66,13 +66,13 @@ int			main(int argc, char **argv)
 	result = get_next_line(fd4, &line);
 	dropline(fd4, result, &line);
 	
-	result = get_next_line(fd1, &line);
+	result = get_next_line(fd1, (void*)0);
 	dropline(fd1, result, &line);
-	result = get_next_line(fd2, &line);
+	result = get_next_line(fd2, (void*)0);
 	dropline(fd2, result, &line);
-	result = get_next_line(fd3, &line);
+	result = get_next_line(fd3, (void*)0);
 	dropline(fd3, result, &line);
-	result = get_next_line(fd4, &line);
+	result = get_next_line(fd4, (void*)0);
 	dropline(fd4, result, &line);
 
 	result = get_next_line(fd1, &line);
@@ -113,8 +113,6 @@ int			main(int argc, char **argv)
 	dropline(fd4, result, &line);
 	result = get_next_line(fd5, &line);
 	dropline(fd5, result, &line);
-	result = get_next_line(fd6, &line);
+	result = get_next_line(fd6, (void*)0);
 	dropline(fd6, result, &line);
-	result = get_next_line(-77, (void*)0);
-	dropline(-77, result, &line);
 }
