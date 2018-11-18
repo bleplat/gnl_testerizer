@@ -22,7 +22,7 @@ bonusdiff() {
 		printf "[no bonus]"
 		printf $color_det
 		diff $1 $2 > "tmp_diff"
-		echo "Failed test for $1" >> $diffttl
+		echo "Failed test" >> $diffttl
 		cat "tmp_diff" >> $diffttl
 	fi
 }
@@ -37,7 +37,7 @@ onediff() {
 		printf "[fail]"
 		printf $color_det
 		diff $1 $2 > "tmp_diff"
-		echo "Failed test for $1" >> $diffttl
+		echo "Failed test" >> $diffttl
 		cat "tmp_diff" >> $diffttl
 	fi
 }
