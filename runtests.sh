@@ -10,16 +10,20 @@ color_det="\e[33m"
 color_ok="\e[32m"
 color_ko="\e[31m"
 
-
-if [ -f tests_big ]
+if [ -f main.o ]
 then
-	printf "\e[35mg\e[31mn\e[32ml\e[33m_\e[34mt\e[35me\e[36ms\e[37mt\e[35m\e[31me\e[32mr\e[33mi\e[34mz\e[35me\e[36mr\e[35m\n\n"
-	printf "" > $diffttl
+	printf $color_def
+	printf "make seems done\n"
 else
+	printf $color_def
+	printf "'make' seems not done, running it...\n"
 	printf $color_ko
-	printf "ERROR: do 'make' instead of running this script!"
-	exit 1
+	printf "Warning: next time do 'make re' if you edited your project\n"
+	make tests
 fi
+
+printf "\e[35mg\e[31mn\e[32ml\e[33m_\e[34mt\e[35me\e[36ms\e[37mt\e[35m\e[31me\e[32mr\e[33mi\e[34mz\e[35me\e[36mr\e[35m\n\n"
+printf "" > $diffttl
 
 onediff() {
 	if [ "`diff $1 $2`" = "" ]
@@ -141,7 +145,7 @@ printf "\n\n"
 
 # BIG file descriptors
 printf $color_def
-printf "testing big file descriptor...\n"
+printf "testing big file descriptors...\n"
 cat "testfiles/highfds_expected" | awk 1 > $expect
 mkdir -p tmp
 ./tests_highfds "-" "#128" "testfiles/2l8c.txt" > $your;

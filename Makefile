@@ -6,7 +6,7 @@
 #    By: bleplat <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 09:05:04 by bleplat           #+#    #+#              #
-#    Updated: 2018/11/18 22:21:52 by bleplat          ###   ########.fr        #
+#    Updated: 2018/11/19 13:56:18 by bleplat          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,14 +15,13 @@ TESTED_DIR = ../try0
 
 NAME = tests
 
-GNL_DIR = .
-
 INCLUDES = libft/includes
 SRC_DIR = .
 OBJ_DIR = .
+GNL_DIR = .
 
-CFLAGS = -Wall -Wextra -I $(GNL_DIR)
-LFLAGS = -Wall -Wextra -L libft -lft
+CFLAGS = -Wall -Wextra
+LDFLAGS = -L libft -lft
 
 all: norminette copy $(NAME)
 	@printf "\e[36mLAUNCHING TESTS...\e[31m\n\n"
@@ -44,37 +43,32 @@ copy:
 libft_lib:
 	cd $(GNL_DIR)/libft && make 1> /dev/null
 
-main_obj:
-	@printf "\e[35m"
-	@gcc $(CFLAGS) -o $(GNL_DIR)/main.o -c main.c
+main.o: main.c
+	@gcc $(CFLAGS) -o $@ -c main.c
 
 tests_multifd: main_multi.c
-	@printf "\e[35m"
-	@gcc -o tests_multifd main_multi.c get_next_line.c -I libft/includes -DBUFF_SIZE=8 -L libft -lft
+	@gcc -o $@ main_multi.c get_next_line.c -I $(INCLUDES) -DBUFF_SIZE=8 $(LDFLAGS)
 
 tests_badfds: main_badfds.c
-	@printf "\e[35m"
-	@gcc -o tests_badfds main_badfds.c get_next_line.c -I libft/includes -DBUFF_SIZE=8 -L libft -lft
+	@gcc -o $@ main_badfds.c get_next_line.c -I $(INCLUDES) -DBUFF_SIZE=8 $(LDFLAGS)
 
 tests_leaks: main_leaks.c
-	@printf "\e[35m"
-	@gcc -o tests_leaks main_leaks.c get_next_line.c -I libft/includes -DBUFF_SIZE=9 -L libft -lft
+	@gcc -o $@ main_leaks.c get_next_line.c -I $(INCLUDES) -DBUFF_SIZE=9 $(LDFLAGS)
 
 tests_highfds: main_highfds.c
-	@printf "\e[35m"
-	@gcc -o tests_highfds main_highfds.c get_next_line.c -I libft/includes -DBUFF_SIZE=9 -L libft -lft
-
-$(NAME): libft_lib tests_highfds tests_leaks tests_badfds tests_multifd copy main_obj gnl_obj
-	@printf "\e[35m"
-	@gcc $(LFLAGS) -o $(NAME)_tiny main.o get_next_line.c_tiny.o
-	@gcc $(LFLAGS) -o $(NAME)_small main.o get_next_line.c_small.o
-	@gcc $(LFLAGS) -o $(NAME)_big main.o get_next_line.c_big.o
+	@gcc -o $@ main_highfds.c get_next_line.c -I $(INCLUDES) -DBUFF_SIZE=9 $(LDFLAGS)
 
 gnl_obj: get_next_line.c get_next_line.h
 	@printf "\e[35m"
 	@gcc $(CFLAGS) -DBUFF_SIZE=1 -o $<_tiny.o -I $(INCLUDES) -c $<
 	@gcc $(CFLAGS) -DBUFF_SIZE=8 -o $<_small.o -I $(INCLUDES) -c $<
 	@gcc $(CFLAGS) -DBUFF_SIZE=256 -o $<_big.o -I $(INCLUDES) -c $<
+
+$(NAME): copy main.o gnl_obj libft_lib tests_highfds tests_leaks tests_badfds tests_multifd
+	@printf "\e[35m"
+	@gcc -o $(NAME)_tiny main.o get_next_line.c_tiny.o $(LDFLAGS)
+	@gcc -o $(NAME)_small main.o get_next_line.c_small.o $(LDFLAGS)
+	@gcc -o $(NAME)_big main.o get_next_line.c_big.o $(LDFLAGS)
 
 clean:
 	@printf "\e[33m"
