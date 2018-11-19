@@ -19,7 +19,7 @@ else
 	printf "'make' seems not done, running it...\n"
 	printf $color_ko
 	printf "Warning: next time do 'make re' if you edited your project\n"
-	make tests
+	make re
 fi
 
 printf "\e[35mg\e[31mn\e[32ml\e[33m_\e[34mt\e[35me\e[36ms\e[37mt\e[35m\e[31me\e[32mr\e[33mi\e[34mz\e[35me\e[36mr\e[35m\n\n"
