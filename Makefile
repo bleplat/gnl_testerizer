@@ -6,7 +6,7 @@
 #    By: bleplat <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 09:05:04 by bleplat           #+#    #+#              #
-#    Updated: 2018/11/19 16:55:47 by bleplat          ###   ########.fr        #
+#    Updated: 2018/11/19 16:56:25 by bleplat          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ CFLAGS = -Wall -Wextra
 LDFLAGS = -L libft -lft
 
 all: import $(NAME)
-	@printf "\e[36mYou can now run 'sh gnl_testerizer.sh'...\e[31m\n\n"
+	@printf "\e[36mReady to run 'sh gnl_testerizer.sh'...\e[31m\n\n"
 
 run: all
 	./runtests.sh run
