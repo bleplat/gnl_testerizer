@@ -6,13 +6,13 @@
 #    By: bleplat <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 09:05:04 by bleplat           #+#    #+#              #
-#    Updated: 2018/11/19 16:56:25 by bleplat          ###   ########.fr        #
+#    Updated: 2018/11/19 18:35:08 by bleplat          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Change the above path to the path of your project, without an ending '/':
-TESTED_DIR = ../try0
-# Then do 'make re'
+TESTED_DIR = ../tbailleu
+
 
 NAME = tests
 
