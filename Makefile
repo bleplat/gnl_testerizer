@@ -6,12 +6,12 @@
 #    By: bleplat <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 09:05:04 by bleplat           #+#    #+#              #
-#    Updated: 2018/11/19 20:00:11 by bleplat          ###   ########.fr        #
+#    Updated: 2018/11/19 20:35:26 by bleplat          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Change the above path to the path of your project, without an ending '/':
-TESTED_DIR = ~/tmp/guvillar
+TESTED_DIR = ../try0
 
 
 NAME = tests

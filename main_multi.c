@@ -6,7 +6,7 @@
 /*   By: bleplat <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/16 22:11:42 by bleplat           #+#    #+#             */
-/*   Updated: 2018/11/19 14:53:24 by bleplat          ###   ########.fr       */
+/*   Updated: 2018/11/19 20:34:43 by bleplat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void		dropline(int fd, int result, char **line)
 	else
 		printf("%s\n", *line);
 	free(*line);
+	*line = NULL;
 }
 
 int			main(int argc, char **argv)
@@ -42,7 +43,7 @@ int			main(int argc, char **argv)
 	int		fd4 = open("testfiles/multi4.txt", O_RDONLY);
 	int		fd5 = open("testfiles/multi5.txt", O_RDONLY);
 	int		fd6 = open("testfiles/multi6.txt", O_RDONLY);
-	char	*line;
+	char	*line = NULL;
 	int		result;
 
 	(void)argc;
