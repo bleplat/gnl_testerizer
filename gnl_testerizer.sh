@@ -1,4 +1,9 @@
-# /bin/bash
+# /bin/sh
+
+################################################################
+### WARNING
+### Dont forget to change the path to your project in the Makefile!
+####################################################################
 
 
 expect=tmp_expected_results
@@ -10,19 +15,20 @@ color_det="\e[33m"
 color_ok="\e[32m"
 color_ko="\e[31m"
 
-if [ -f main.o ]
+if [ $1 = "run" ]
 then
 	printf $color_def
-	printf "make seems done\n"
+	printf "Running tests without running make!"
 else
 	printf $color_def
-	printf "'make' seems not done, running it...\n"
-	printf $color_ko
-	printf "Warning: next time do 'make re' if you edited your project\n"
+	printf "Making files and running tests...\n"
 	make re
+	make norminette
 fi
 
+printf $color_def
 printf "\e[35mg\e[31mn\e[32ml\e[33m_\e[34mt\e[35me\e[36ms\e[37mt\e[35m\e[31me\e[32mr\e[33mi\e[34mz\e[35me\e[36mr\e[35m\n\n"
+
 printf "" > $diffttl
 
 onediff() {

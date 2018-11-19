@@ -6,7 +6,7 @@
 #    By: bleplat <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 09:05:04 by bleplat           #+#    #+#              #
-#    Updated: 2018/11/19 14:37:31 by bleplat          ###   ########.fr        #
+#    Updated: 2018/11/19 15:05:46 by bleplat          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,9 +24,11 @@ GNL_DIR = .
 CFLAGS = -Wall -Wextra
 LDFLAGS = -L libft -lft
 
-all: norminette import $(NAME)
+all: import $(NAME)
 	@printf "\e[36mLAUNCHING TESTS...\e[31m\n\n"
-	@sh runtests.sh
+
+run: all
+	./runtests.sh run
 
 ### Tested Project Import ###
 
@@ -49,34 +51,34 @@ $(GNL_DIR)/libft.a:
 ### Main tests ###
 
 main.o: main.c
-	@gcc $(CFLAGS) -o $@ -c main.c
+	gcc $(CFLAGS) -o $@ -c main.c
 
 MAIN_TESTS = $(NAME)_tiny $(NAME)_small $(NAME)_big
 
-$(NAME)_tiny: get_next_line.c get_next_line.h
-	@gcc $(CFLAGS) -DBUFF_SIZE=1 -o $@ -I $(INCLUDES) main.o $< $(LDFLAGS)
+$(NAME)_tiny: get_next_line.c
+	gcc $(CFLAGS) -I $(INCLUDES) -DBUFF_SIZE=1 -o $@ main.o $< $(LDFLAGS)
 
-$(NAME)_small: get_next_line.c get_next_line.h
-	@gcc $(CFLAGS) -DBUFF_SIZE=8 -o $@ -I $(INCLUDES) main.o $< $(LDFLAGS)
+$(NAME)_small: get_next_line.c
+	gcc $(CFLAGS) -I $(INCLUDES) -DBUFF_SIZE=8 -o $@ main.o $< $(LDFLAGS)
 
-$(NAME)_big: get_next_line.c get_next_line.h
-	@gcc $(CFLAGS) -DBUFF_SIZE=256 -o $@ -I $(INCLUDES) main.o $< $(LDFLAGS)
+$(NAME)_big: get_next_line.c
+	gcc $(CFLAGS) -I $(INCLUDES) -DBUFF_SIZE=256 -o $@ main.o $< $(LDFLAGS)
 
 ### Special Tests ###
 
-SPECIAL_TESTS = tests_multifd tests_badfds tests_highfds tests_leaks
+SPECIAL_TESTS = $(NAME)_multifd $(NAME)_badfds $(NAME)_highfds $(NAME)_leaks
 
-tests_multifd: main_multi.c
-	@gcc -o $@ main_multi.c get_next_line.c -I $(INCLUDES) -DBUFF_SIZE=8 $(LDFLAGS)
+$(NAME)_multifd: main_multi.c get_next_line.c
+	gcc $(CFLAGS) -I $(INCLUDES) -DBUFF_SIZE=8 -o $@ $^ $(LDFLAGS)
 
-tests_badfds: main_badfds.c
-	@gcc -o $@ main_badfds.c get_next_line.c -I $(INCLUDES) -DBUFF_SIZE=8 $(LDFLAGS)
+$(NAME)_badfds: main_badfds.c get_next_line.c
+	gcc $(CFLAGS) -I $(INCLUDES) -DBUFF_SIZE=8 -o $@ $^ $(LDFLAGS)
 
-tests_leaks: main_leaks.c
-	@gcc -o $@ main_leaks.c get_next_line.c -I $(INCLUDES) -DBUFF_SIZE=9 $(LDFLAGS)
+$(NAME)_leaks: main_leaks.c get_next_line.c
+	gcc $(CFLAGS) -I $(INCLUDES) -DBUFF_SIZE=9 -o $@ $^ $(LDFLAGS)
 
-tests_highfds: main_highfds.c
-	@gcc -o $@ main_highfds.c get_next_line.c -I $(INCLUDES) -DBUFF_SIZE=9 $(LDFLAGS)
+$(NAME)_highfds: main_highfds.c get_next_line.c
+	gcc $(CFLAGS) -I $(INCLUDES) -DBUFF_SIZE=11 -o $@ $^ $(LDFLAGS)
 
 ### Special Rules ###
 

@@ -6,7 +6,7 @@
 /*   By: bleplat <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/16 22:11:42 by bleplat           #+#    #+#             */
-/*   Updated: 2018/11/18 18:13:21 by bleplat          ###   ########.fr       */
+/*   Updated: 2018/11/19 14:54:55 by bleplat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int			main(int argc, char **argv)
 	char	*line;
 	int		result;
 
+	(void)argc;
+	(void)argv;
 	advanced = 0;
 	if (argc != 1)
 		advanced = 1;
