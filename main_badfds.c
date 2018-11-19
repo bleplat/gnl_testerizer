@@ -6,7 +6,7 @@
 /*   By: bleplat <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/16 22:11:42 by bleplat           #+#    #+#             */
-/*   Updated: 2018/11/19 14:54:55 by bleplat          ###   ########.fr       */
+/*   Updated: 2018/11/19 18:58:43 by bleplat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,9 @@ void		dropline(int fd, int result, char **line)
 		printf("fd %d (%d) '%s'\n", fd, result, *line);
 	else
 		printf("%s\n", *line);
-	free(*line);
+	if (*line != NULL)
+		free(*line);
+	*line = NULL;
 }
 
 int			main(int argc, char **argv)
@@ -42,14 +44,30 @@ int			main(int argc, char **argv)
 	int		fd4 = 44;
 	int		fd5 = 1000;
 	int		fd6 = 2147483647;
-	char	*line;
+	int		fdx;
+	char	*line = NULL;
 	int		result;
+	int		iarg;
 
 	(void)argc;
 	(void)argv;
 	advanced = 0;
-	if (argc != 1)
-		advanced = 1;
+	iarg = 1;
+	while (iarg < argc)
+	{
+		if (argv[iarg][0] == '-')
+			advanced = 1;
+		else if (argv[iarg][0] == '#')
+		{
+			fdx = atoi(&argv[iarg][1]);
+			result = get_next_line(fdx, &line);
+			dropline(fdx, result, &line);
+			result = get_next_line(fdx, &line);
+			dropline(fdx, result, &line);
+			return (0);
+		}
+		iarg++;
+	}
 	while ((result = get_next_line(fd0, &line)) > 0)
 		dropline(fd0, result, &line);
 	dropline(fd0, result, &line);
