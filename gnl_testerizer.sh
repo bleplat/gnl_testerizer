@@ -10,7 +10,7 @@ expect=tmp_expected_results
 your=tmp_your_result
 diffttl=test_results
 
-color_def="\e[35m"
+color_def="\e[36m"
 color_det="\e[33m"
 color_ok="\e[32m"
 color_ko="\e[31m"
@@ -51,18 +51,18 @@ onetest() { # $1 -> file_name
 	printf "testing $1...\n"
 	cat $1 | awk 1 > $expect
 	# input from file
-	./tests_tiny $1 > $your
+	./tests_tiny $1 &> $your
 	onediff $expect $your $1;
-	./tests_small $1 > $your
+	./tests_small $1 &> $your
 	onediff $expect $your $1;
-	./tests_big $1 > $your
+	./tests_big $1 &> $your
 	onediff $expect $your $1;
 	# standard input
-	cat $1 | ./tests_tiny > $your
+	cat $1 | ./tests_tiny &> $your
 	onediff $expect $your $1;
-	cat $1 | ./tests_small > $your
+	cat $1 | ./tests_small &> $your
 	onediff $expect $your $1;
-	cat $1 | ./tests_big > $your
+	cat $1 | ./tests_big &> $your
 	onediff $expect $your $1;
 	printf "\n\n"
 }
@@ -79,10 +79,10 @@ testleaks() {
 	if [ "`cat tmp_leaks`" = "0 leaks for 0 total leaked bytes." ]
 	then
 		printf $color_ok
-		printf "[no leaks]\n\n"
+		printf "[ok]\n\n"
 	else
 		printf $color_ko
-		printf "[leaks!] "
+		printf "[leaked] "
 		cat tmp_leaks
 		printf "\n"
 	fi
@@ -144,9 +144,28 @@ onetest "testfiles/protected.txt"
 # bad file descriptors
 printf $color_def
 printf "testing bad file descriptors (lot of tests in one)...\n"
+cat "testfiles/badfdX_expected" | sed "s/X/42/g" | awk 1 > $expect
+./tests_badfds "-" "#42" > $your;
+onediff $expect $your "Bad file descriptors"
+cat "testfiles/badfdX_expected" | sed "s/X/-5/g" | awk 1 > $expect
+./tests_badfds "-" "#-5" > $your;
+onediff $expect $your "Bad file descriptors"
+cat "testfiles/badfdX_expected" | sed "s/X/7777777/g" | awk 1 > $expect
+./tests_badfds "-" "#7777777" > $your;
+onediff $expect $your "Bad file descriptors"
 cat "testfiles/badfds_expected" | awk 1 > $expect
 ./tests_badfds "-" > $your;
 onediff $expect $your "Bad file descriptors"
+printf "\n\n"
+
+# NULL pointer
+printf $color_def
+printf "testing NULL pointer...\n"
+cat "testfiles/nullptr_expected" | awk 1 > $expect
+./tests_big "-" "#" "testfiles/2l8c.txt" > $your;
+onediff $expect $your "NULL pointer"
+./tests_tiny "-" "#" "testfiles/unexisting_file7436753645" > $your;
+onediff $expect $your "NULL pointer"
 printf "\n\n"
 
 # BIG file descriptors

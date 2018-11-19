@@ -6,12 +6,12 @@
 #    By: bleplat <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 09:05:04 by bleplat           #+#    #+#              #
-#    Updated: 2018/11/19 18:35:08 by bleplat          ###   ########.fr        #
+#    Updated: 2018/11/19 20:00:11 by bleplat          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Change the above path to the path of your project, without an ending '/':
-TESTED_DIR = ../tbailleu
+TESTED_DIR = ~/tmp/guvillar
 
 
 NAME = tests
@@ -40,10 +40,10 @@ norminette:
 import:
 	@printf "\e[35mcopying files..\n"
 	@mkdir -p $(GNL_DIR)
-	@cp -rf $(TESTED_DIR)/libft $(GNL_DIR)/libft
-	@cp -rf $(TESTED_DIR)/get_next_line.h $(GNL_DIR)/get_next_line.h
-	@cp -rf $(TESTED_DIR)/get_next_line.c $(GNL_DIR)/get_next_line.c
-	@sed -E "s/^# define BUFF_SIZE .*/\/\*# define BUFF_SIZE 0\*\//g" $(GNL_DIR)/get_next_line.h > swp && mv swp $(GNL_DIR)/get_next_line.h
+	cp -rf $(TESTED_DIR)/libft $(GNL_DIR)/libft
+	cp -rf $(TESTED_DIR)/get_next_line.h $(GNL_DIR)/get_next_line.h
+	cp -rf $(TESTED_DIR)/get_next_line.c $(GNL_DIR)/get_next_line.c
+	sed -E "s/^# define BUFF_SIZE .*/\/\*# define BUFF_SIZE 0\*\//g" $(GNL_DIR)/get_next_line.h > swp && mv swp $(GNL_DIR)/get_next_line.h
 
 $(GNL_DIR)/libft.a:
 	cd $(GNL_DIR)/libft && make 1> /dev/null
@@ -85,7 +85,7 @@ $(NAME)_highfds: main_highfds.c get_next_line.c
 $(NAME): $(GNL_DIR)/libft.a main.o $(MAIN_TESTS) $(SPECIAL_TESTS)
 
 clean:
-	@printf "\e[33m"
+	@printf "\e[35mcleaning...\n"
 	rm -rf *.o
 	rm -rf libft
 	rm -f get_next_line.c get_next_line.h
@@ -93,7 +93,6 @@ clean:
 	rm -rf tmp
 
 fclean: clean
-	@printf "\e[33m"
 	rm -rf $(NAME)_*
 	rm -f test_results
 
