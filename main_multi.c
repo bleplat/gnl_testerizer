@@ -6,7 +6,7 @@
 /*   By: bleplat <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/16 22:11:42 by bleplat           #+#    #+#             */
-/*   Updated: 2018/11/19 20:34:43 by bleplat          ###   ########.fr       */
+/*   Updated: 2018/11/24 19:15:46 by bleplat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,8 @@ int			main(int argc, char **argv)
 	dropline(fd4, result, &line);
 	result = get_next_line(fd5, &line);
 	dropline(fd5, result, &line);
+	result = get_next_line(fd6, &line);
+	dropline(fd6, result, &line);
 	result = get_next_line(fd6, &line);
 	dropline(fd6, result, &line);
 	result = get_next_line(-77, (void*)0);

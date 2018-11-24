@@ -32,4 +32,5 @@ fd 6 (0) END-OF-FILE
 fd 7 (0) END-OF-FILE
 fd 8 (0) END-OF-FILE
 fd 9 (0) END-OF-FILE
+fd 9 (0) END-OF-FILE
 fd -77 (-1) '(null)'
