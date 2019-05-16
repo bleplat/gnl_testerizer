@@ -9,3 +9,4 @@ Not all tests are performed, but it sometime find things.
 # Disclaimer
 - Failing tests does not mean you are wrong, you should inverstigate.
 - This tester does not test everything. It is not enough for an evaluation.
+- Im currently working on more interesting things, this tester may not be updated often.
