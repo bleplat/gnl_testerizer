@@ -6,12 +6,12 @@
 #    By: bleplat <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 09:05:04 by bleplat           #+#    #+#              #
-#    Updated: 2018/11/19 20:35:26 by bleplat          ###   ########.fr        #
+#    Updated: 2019/05/16 20:47:22 by bleplat          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Change the above path to the path of your project, without an ending '/':
-TESTED_DIR = ../try0
+TESTED_DIR = ../bleplat
 
 
 NAME = tests
@@ -44,6 +44,7 @@ import:
 	cp -rf $(TESTED_DIR)/get_next_line.h $(GNL_DIR)/get_next_line.h
 	cp -rf $(TESTED_DIR)/get_next_line.c $(GNL_DIR)/get_next_line.c
 	sed -E "s/^# define BUFF_SIZE .*/\/\*# define BUFF_SIZE 0\*\//g" $(GNL_DIR)/get_next_line.h > swp && mv swp $(GNL_DIR)/get_next_line.h
+	cat -e $(TESTED_DIR)/auteur || cat -e $(TESTED_DIR)/author || printf "\e[31mNO AUTHOR FILE FOUND!\e[0m\n"
 
 $(GNL_DIR)/libft.a:
 	cd $(GNL_DIR)/libft && make 1> /dev/null
