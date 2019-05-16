@@ -1,0 +1,6 @@
+get_next_line.c
+get_next_line.h
+libft/
+main.o
+test_results
+/tests_*
